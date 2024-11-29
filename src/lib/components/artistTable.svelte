@@ -2,10 +2,11 @@
   let { artistVisits } = $props();
 
   function formatDuration(duration: number): string {
-    const minutes = Math.floor(duration / 60);
-    const seconds = duration % 60;
+  const hours = Math.floor(duration / 3600);
+  const minutes = Math.floor((duration % 3600) / 60);
+  const seconds = duration % 60;
 
-    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+  return `${hours}:${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   }
 </script>
 
@@ -19,6 +20,7 @@
           <th scope="col" class="px-6 py-3">Artist Id</th>
           <th scope="col" class="px-6 py-3">Artist Name</th>
           <th scope="col" class="px-6 py-3">Total Time Spent (minutes)</th>
+          <th scope="col" class="px-6 py-3">Total Unique Visitors</th>
         </tr>
       </thead>
       <tbody>
@@ -38,7 +40,7 @@
               {formatDuration(total_visit_duration)}
             </td>
             <td class="px-6 py-4">
-              {formatDuration(unique_session_count)}
+              {unique_session_count}
             </td>
           </tr>
         {/each}

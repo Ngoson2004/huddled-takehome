@@ -7,11 +7,15 @@ export const load: PageServerLoad = async ({ locals }) => {
 SELECT 
     a.id AS artist_id, 
     a.name AS artist_name, 
-    SUM(v.end_time - v.start_time) AS total_visit_duration,
+    sum(v.end_time - v.start_time) AS total_visit_duration,
+    count(distinct v.session_id) AS unique_session_count,
+    count(distinct s.user_id) as unique_session_count
 FROM 
     artists a
 JOIN 
-    visits v ON a.id = v.id
+    visits v ON a.id = v.artist_id
+JOIN
+    sessions s ON v.session_id = s.id
 GROUP BY 
     a.id
 `;
