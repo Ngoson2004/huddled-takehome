@@ -8,7 +8,6 @@ SELECT
     a.id AS artist_id, 
     a.name AS artist_name, 
     sum(v.end_time - v.start_time) AS total_visit_duration,
-    count(distinct v.session_id) AS unique_session_count,
     count(distinct s.user_id) as unique_session_count
 FROM 
     artists a
@@ -18,6 +17,8 @@ JOIN
     sessions s ON v.session_id = s.id
 GROUP BY 
     a.id
+ORDER BY
+    total_visit_duration DESC
 `;
 
   const data = await db.prepare(query).all();
