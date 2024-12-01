@@ -147,8 +147,11 @@
       .order(d3.stackOrderNone)
       .offset(d3.stackOffsetNone);
 
+    // Generate the stack
     const series = stack(stackData);
+    console.log(series);
 
+    // Create scales
     const artists = Array.from(new Set(flatData.map((d) => d.artist_id)));
     const hours = Array.from(new Set(flatData.map((d) => d.hr)));
 
@@ -170,6 +173,7 @@
       .nice()
       .rangeRound([height - marginBottom, marginTop]);
 
+    // Create color scale
     const colorScale = d3
       .scaleSequential(d3.interpolateSpectral)
       .domain([0, hours.length]);
@@ -181,6 +185,7 @@
       .range(Array.from(hours).map((_, i) => colorScale(i)))
       .unknown("#ccc");
 
+    // Append the bars
     svg
       .append("g")
       .selectAll("g")
@@ -206,7 +211,7 @@
     svg
       .append("g")
       .attr("transform", `translate(${marginLeft},0)`)
-      .call(d3.axisLeft(y).ticks(null, "s"))
+      .call(d3.axisLeft(y).tickSize(0))
       .call((g) => g.selectAll(".domain").remove());
 
     // Create a legend group
@@ -216,7 +221,7 @@
     hours.forEach((hour, i) => {
       const legendRow = legend
         .append("g")
-        .attr("transform", `translate(${i * 23}, 0)`);
+        .attr("transform", `translate(${i * 30}, 0)`);
 
       legendRow
         .append("rect")
@@ -234,9 +239,10 @@
     });
   });
 
-  //28 or 18 has a large fraction of morning listeners
+  //28 and 18 has a large fraction of morning listeners
   //38 has a large fraction of afternoon listeners
   //39 has a large fraction of evening listeners
+  //1 has a large fraction of night/early morning listeners
 </script>
 
 <div class="overflow-x-auto">
