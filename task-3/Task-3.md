@@ -127,3 +127,4 @@ $$
 - Make forms on the platform
 - The form should be short and simple (e.g: star-based)
 - “How do you feel about our suggestion so far?”
+- Give a demo to a group of students and get their feedback on UX
