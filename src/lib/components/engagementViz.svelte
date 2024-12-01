@@ -131,6 +131,7 @@
     // Stacked bar chart
     const nestedData = d3.group(flatData, (d) => d.artist_id);
     const stackKeys = Array.from(new Set(flatData.map((d) => d.hr)));
+    // console.log(nestedData);
 
     const stackData = Array.from(nestedData, ([artist_id, values]) => {
       const result: any = { artist_id };
@@ -139,6 +140,7 @@
       });
       return result;
     });
+    console.log(stackData);
 
     // Create the stack generator
     const stack = d3
@@ -195,7 +197,7 @@
       .selectAll("rect")
       .data((d) => d)
       .join("rect")
-      .attr("x", (d) => fx(d.data.artist_id)!)
+      .attr("x", (d) => fx(d.data.artist_id))
       .attr("y", (d) => y(d[1]))
       .attr("height", (d) => y(d[0]) - y(d[1]))
       .attr("width", fx.bandwidth());
