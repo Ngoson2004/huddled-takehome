@@ -2,9 +2,10 @@
   let { artistVisits } = $props();
 
   function formatDuration(duration: number): string {
-  const hours = Math.floor(duration / 3600);
-  const minutes = Math.floor((duration % 3600) / 60);
-  const seconds = duration % 60;
+  const convertDuration = Math.floor(duration / 1000);
+  const hours = Math.floor(convertDuration / 3600);
+  const minutes = Math.floor((convertDuration % 3600) / 60);
+  const seconds = convertDuration % 60;
 
   return `${hours}:${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   }
